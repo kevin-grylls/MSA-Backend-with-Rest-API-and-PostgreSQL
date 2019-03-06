@@ -1,0 +1,3 @@
+INSERT 
+INTO sample (COLUMN1, COLUMN2) 
+VALUES ($1, $2)

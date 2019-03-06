@@ -1,0 +1,3 @@
+SELECT * 
+FROM sample 
+WHERE COLUMN1 = $1 and COLUMN2 = $2

@@ -1,0 +1,467 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "A Simple Backend Service",
+    "contact": {
+      "name": "Kevin Sang Hyeon You",
+      "url": "https://github.com/kevin-grylls",
+      "email": "eilgwon88@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8081/",
+      "description": "A Simple Backend Service",
+      "variables": {
+        "email": {
+          "default": "https://github.com/kevin-grylls"
+        },
+        "port": {
+          "enum": ["8081"],
+          "default": "8081"
+        },
+        "basePath": {
+          "default": "/"
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "API List",
+        "operationId": "index",
+        "tags": ["Service Description"],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      }
+    },
+    "/v1": {
+      "get": {
+        "summary": "Read an object",
+        "operationId": "getObject",
+        "tags": ["sample"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The unique id of user",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/getObject"
+          },
+          "422": {
+            "$ref": "#/components/responses/ParameterError"
+          },
+          "500": {
+            "$ref": "#/components/responses/TransactionError"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create an object",
+        "operationId": "addObject",
+        "tags": ["sample"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/addObject"
+          },
+          "422": {
+            "$ref": "#/components/responses/DuplicateKey"
+          },
+          "500": {
+            "$ref": "#/components/responses/TransactionError"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an object",
+        "operationId": "updateObject",
+        "tags": ["sample"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "param1": {
+                    "example": 1
+                  },
+                  "param2": {
+                    "example": "kevin"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/updateObject"
+          },
+          "403": {
+            "$ref": "#/components/responses/PermissionDenied"
+          },
+          "409": {
+            "$ref": "#/components/responses/updateObjectFailure"
+          },
+          "422": {
+            "$ref": "#/components/responses/DuplicateKey"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an object",
+        "operationId": "deleteObject",
+        "tags": ["sample"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The unique id of user",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "password": {
+                    "example": 1234
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/deleteObject"
+          },
+          "403": {
+            "$ref": "#/components/responses/PermissionDenied"
+          },
+          "500": {
+            "$ref": "#/components/responses/deleteObjectFailure"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Object": {
+        "required": ["param1", "param2"],
+        "properties": {
+          "param1": {
+            "type": "string"
+          },
+          "param2": {
+            "type": "string"
+          }
+        }
+      },
+      "Hateos": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "properties": {
+            "type": "object",
+            "default": null
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "rel": {
+                  "type": "string"
+                },
+                "method": {
+                  "type": "string"
+                },
+                "href": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Response": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "default": true
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "default": null
+          }
+        }
+      }
+    },
+    "parameters": {
+      "signupParam": {
+        "name": "name",
+        "in": "query",
+        "description": "user name",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "responses": {
+      "default": {
+        "description": "Service Self Description",
+        "content": {
+          "applicaion/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Hateos"
+            },
+            "example": {
+              "name": "Object",
+              "description": "This JSON Schema defines the paramaters required to hanlde an object",
+              "properties": {
+                "$ref": "#/components/schemas/Object"
+              },
+              "links": {
+                "rel": "Self",
+                "method": "GET",
+                "href": "http://127.0.0.1:8081"
+              }
+            }
+          }
+        }
+      },
+      "addObject": {
+        "description": "Created Successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Response"
+            },
+            "example": {
+              "status": true,
+              "message": "Created Successfully",
+              "data": null
+            }
+          }
+        }
+      },
+      "getObject": {
+        "description": "Read Successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Response"
+            },
+            "example": {
+              "status": true,
+              "message": "Read Successfully",
+              "data": {
+                "$ref": "#/components/schemas/Object/properties"
+              }
+            }
+          }
+        }
+      },
+      "updateObject": {
+        "description": "Updated Successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Response"
+            },
+            "example": {
+              "status": true,
+              "message": "Updated Successfully",
+              "data": null
+            }
+          }
+        }
+      },
+      "updateObjectFailure": {
+        "description": "Request is crashed",
+        "content": {
+          "applicaion/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Response"
+            },
+            "example": {
+              "status": false,
+              "message": "Request is crashed",
+              "data": "Error message will be written in this area"
+            }
+          }
+        }
+      },
+      "deleteObject": {
+        "description": "Deleted Successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Response"
+            },
+            "example": {
+              "status": false,
+              "message": "Deleted Successfully",
+              "data": null
+            }
+          }
+        }
+      },
+      "deleteObjectFailure": {
+        "description": "Request is failed",
+        "content": {
+          "applicaion/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Response"
+            },
+            "example": {
+              "status": false,
+              "message": "Request is failed",
+              "data": "Error message will be written in this area"
+            }
+          }
+        }
+      },
+      "getSuccess": {
+        "description": "Read Successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Response"
+            },
+            "example": {
+              "status": true,
+              "message": "Read Successfully",
+              "data": null
+            }
+          }
+        }
+      },
+      "putSuccess": {
+        "description": "Update Successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Response"
+            },
+            "example": {
+              "status": true,
+              "message": "Update Successfully",
+              "data": null
+            }
+          }
+        }
+      },
+      "PermissionDenied": {
+        "description": "Permission Denied",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Response"
+            },
+            "example": {
+              "status": false,
+              "message": "Permission Denied",
+              "data": null
+            }
+          }
+        }
+      },
+      "ParameterError": {
+        "description": "Parameter Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Response"
+            },
+            "example": {
+              "status": false,
+              "message": "Invalid Parameter",
+              "data": null
+            }
+          }
+        }
+      },
+      "DuplicateKey": {
+        "description": "Dulicate Key",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Response"
+            },
+            "example": {
+              "status": "false,",
+              "message": "Duplicate Key",
+              "data": "mobile"
+            }
+          }
+        }
+      },
+      "TransactionError": {
+        "description": "Transaction Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Response"
+            },
+            "example": {
+              "status": false,
+              "message": "Unexpected Error",
+              "data": "Error message will be written in this area"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Page Not Found",
+        "content": {
+          "applicaion/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Response"
+            },
+            "example": {
+              "status": false,
+              "message": "Page Not Found",
+              "data": null
+            }
+          }
+        }
+      }
+    }
+  }
+}

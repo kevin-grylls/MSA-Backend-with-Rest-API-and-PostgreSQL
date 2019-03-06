@@ -1,0 +1,32 @@
+[
+  {
+    "rel": "self",
+    "method": "GET",
+    "title": "A Simple Backend Service",
+    "href": "http://127.0.0.1:8081"
+  },
+  {
+    "rel": "create",
+    "method": "POST",
+    "title": "Create an Object",
+    "href": "http://127.0.0.1:8081"
+  },
+  {
+    "rel": "read",
+    "method": "GET",
+    "title": "Read an Object",
+    "href": "http://127.0.0.1:8081"
+  },
+  {
+    "rel": "update",
+    "method": "PUT",
+    "title": "Update an Object",
+    "href": "http://127.0.0.1:8081"
+  },
+  {
+    "rel": "delete",
+    "method": "DELETE",
+    "title": "Delete an Object",
+    "href": "http://127.0.0.1:8081"
+  }
+]
