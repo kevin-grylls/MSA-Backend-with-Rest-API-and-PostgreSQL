@@ -1,4 +1,4 @@
-# MSA with REST API and PostgreSQL
+# Simple Backend Service with REST API and PostgreSQL
 
 ## Service Description
 
