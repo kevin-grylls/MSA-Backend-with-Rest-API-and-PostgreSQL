@@ -25,7 +25,7 @@ module.exports = app => {
   server.listen(app.get("port"));
   server.on("error", onError);
   server.on("listening", () => {
-    console.log("[", new Date(), "]", "Account Server: OK");
+    console.log("[", new Date(), "]", "Backend Server: OK");
     debug("Service Port:", app.get("port"));
   });
 };

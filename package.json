@@ -1,5 +1,5 @@
 {
-  "name": "MSA with REST API and PostgreSQL",
+  "name": "MSA-Backend-with-Rest-API-and-PostgreSQL",
   "version": "1.0.0",
   "description": "A Simple Backend Service for MSA",
   "main": "index.js",

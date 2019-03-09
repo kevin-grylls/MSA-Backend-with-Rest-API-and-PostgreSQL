@@ -6,12 +6,11 @@ const cors = require("cors");
 
 const app = express();
 const index = require("./server/routes");
-const CONFIG = require("./common/config.json");
+const CONFIG = require("./common/config");
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(bodyParser.json({ limit: "10mb" }));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 

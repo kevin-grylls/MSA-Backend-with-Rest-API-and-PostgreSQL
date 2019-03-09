@@ -21,32 +21,6 @@ class RedisSession {
   }
 }
 
-class MongoSession {
-  constructor(mongoose, session, ttl, config) {
-    this.mongoose = mongoose;
-    this.session = session;
-    this.store = require("connect-mongo")(session);
-    this.ttl = ttl;
-    this.config = config;
-  }
-
-  init() {
-    if (!this.ttl) {
-      console.error("[", new Date(), "]", "TTL is not configured!");
-      return new Error("TTL is not configured!");
-    }
-
-    return new this.store({
-      url: config.url,
-      mongooseConnection: mongoose,
-      collection: "sessions",
-      ttl: this.ttl,
-      autoRemove: "native"
-    });
-  }
-}
-
 module.exports = {
-  RedisSession,
-  MongoSession
+  RedisSession
 };

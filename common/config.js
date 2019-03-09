@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   configurations: {
     serviceOne: {
       development: { ssl: false, port: 8081, hostname: "localhost" },
