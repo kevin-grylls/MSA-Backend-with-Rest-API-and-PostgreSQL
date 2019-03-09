@@ -8,8 +8,6 @@ WORKDIR /home/node/app
 
 # Install Global Dependencies
 RUN npm install -g yarn
-RUN npm install -g node-pre-gyp
-RUN npm install -g node-gyp
 
 # Install Local Dependencies
 COPY package*.json ./

@@ -19,7 +19,6 @@
   "author": "Kevin Sang Hyeon You",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "3.0.2",
     "body-parser": "^1.18.3",
     "connect-redis": "^3.4.0",
     "cookie-parser": "^1.4.3",
