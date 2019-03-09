@@ -1,4 +1,4 @@
-# Simple Backend Service with REST API and PostgreSQL
+# Simple Backend Example with REST API and PostgreSQL
 
 ## Service Description
 
